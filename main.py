@@ -7,6 +7,15 @@ battery = ['N','P','N','P','N','P']
 obscured_battery = ['-','-','-','-','-','-']
 initial_peek = ['?','-','?','-','-','-']
 
+print("\n--Initial Battery Configuration--")
+print("***************************")
+print(f"Batteries:          {battery}")
+print(f"Obscured Batteries: {obscured_battery}")
+print(f"Initial Peek:       {initial_peek}")
+print(f"Peek List:          {peek_list}")
+print(f"last_was:           {last_was}")
+print("***************************\n")
+
 def spin():
     global battery 
     global last_was
@@ -67,7 +76,7 @@ def change(pattern):
     else:
         raise Exception("Change can only be called immediately following Peek")
 
-
+print("--Operations--")
 p_counter = 0
 n_counter = 0
 counter = 0
@@ -105,4 +114,13 @@ while(True):
         
     change(peeked_pattern)
 
-print(counter)
+print(f"counter: {counter}")
+
+print("\n--Battery Configuration After Operations--")
+print("***************************")
+print(f"Batteries:          {battery}")
+print(f"Obscured Batteries: {obscured_battery}")
+print(f"Initial Peek:       {initial_peek}")
+print(f"Peek List:          {peek_list}")
+print(f"last_was:           {last_was}")
+print("***************************\n")
