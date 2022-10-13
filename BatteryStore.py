@@ -17,17 +17,16 @@ class BatteryStore:
   	print(f"Batteries:          {self.batteries}")
   	print(f"Obscured Batteries: {self.obscured_batteries}")
   	print(f"Initial Peek:       {self.initial_peek}")
-  	print(f"last_was:           {self.last_was}")
   	print(f"Peek List:          {self.peek_list}")
+  	print(f"last_was:           {self.last_was}")
   	print("***************************\n")
 
   def spin(self):
-    battery = self.batteries
 
     self.last_was = 'SPIN'
     battery_set = True
-    for i in range(0,len(battery)-1):
-        if battery[i] == battery[i+1]:
+    for i in range(0,len(self.batteries)-1):
+        if self.batteries == self.batteries[i+1]:
             continue
         else:
             battery_set = False
