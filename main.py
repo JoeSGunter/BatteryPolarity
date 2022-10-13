@@ -1,9 +1,11 @@
 import random
 last_was = ''
-battery = ['N','P','N','P','N','P']
-obscured_battery = ['-','-','-','-','-','-']
 num_peeks = 2
 peek_list = []
+
+battery = ['N','P','N','P','N','P']
+obscured_battery = ['-','-','-','-','-','-']
+initial_peek = ['?','-','?','-','-','-']
 
 def spin():
     global battery 
@@ -44,15 +46,26 @@ def peek(pattern):
             peeked_battery[i] = battery[i]
 
         return peeked_battery
+    
+    elif last_was != 'SPIN':
+        raise Exception("Peek can only be called immediately following Spin")
+    else:
+        raise Exception("Number of peeks ({}) is greater than allowed peeks ({})".format(len(peek_list),num_peeks))
 
 def change(pattern):
     global battery
     global last_was
     global peek_list
+    global initial_peek
 
+    for i in range(0,len(pattern)):
+        if pattern[i] != '-' and initial_peek[i] == '-':
+            raise Exception("Cannot change orientation of batteries which were not peeked")
     if last_was == 'PEEK':
         for i in peek_list:
             battery[i] = pattern[i]
+    else:
+        raise Exception("Change can only be called immediately following Peek")
 
 
 p_counter = 0
@@ -62,7 +75,7 @@ while(True):
     counter += 1
     if(spin()):
         break
-    peeked_pattern = peek(['?','-','?','-','-','-'])
+    peeked_pattern = peek(initial_peek)
 
     if peeked_pattern[0] == 'P':
         p_counter += 1
