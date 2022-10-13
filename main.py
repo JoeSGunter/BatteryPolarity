@@ -1,7 +1,7 @@
 import random
 last_was = ''
-battery = ['N','P','N','P','N']
-obscured_battery = ['-','-','-','-','-']
+battery = ['N','P','N','P','N','P']
+obscured_battery = ['-','-','-','-','-','-']
 num_peeks = 2
 peek_list = []
 
@@ -54,15 +54,42 @@ def change(pattern):
         for i in peek_list:
             battery[i] = pattern[i]
 
+
+p_counter = 0
+n_counter = 0
+counter = 0
 while(True):
+    counter += 1
     if(spin()):
         break
-    peeked_pattern = peek(['?','-','?','-','-'])
+    peeked_pattern = peek(['?','-','?','-','-','-'])
 
-    if peeked_pattern[0] != peeked_pattern[2]:
-        peeked_pattern[0] = peeked_pattern[2]
+    if peeked_pattern[0] == 'P':
+        p_counter += 1
+        if p_counter <= n_counter:
+            p_counter -= 1
+            n_counter += 1
+            peeked_pattern[0] = 'N'
     else:
-        peeked_pattern[0] = 'N'
-        peeked_pattern[2] = 'P'
+        n_counter += 1
+        if p_counter >= n_counter:
+            n_counter -= 1
+            p_counter += 1
+            peeked_pattern[0] = 'P'
+    
+    if peeked_pattern[2] == 'P':
+        p_counter += 1
+        if p_counter <= n_counter:
+            p_counter -= 1
+            n_counter += 1
+            peeked_pattern[2] = 'N'
+    else:
+        n_counter += 1
+        if p_counter >= n_counter:
+            n_counter -= 1
+            p_counter += 1
+            peeked_pattern[2] = 'P'
         
     change(peeked_pattern)
+
+print(counter)
